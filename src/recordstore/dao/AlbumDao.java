@@ -23,12 +23,12 @@ public class AlbumDao {
 		ResultSet results = null;
 		
 		try {
-			statement = connection.prepareStatement("SELECT * FROM Album ORDER BY Name ASC");
+			statement = connection.prepareStatement("SELECT * FROM Album ORDER BY Title ASC");
 			results = statement.executeQuery();
 			
 			while (results.next()) {
 				long id = results.getLong("AlbumId");
-				String name = results.getString("Title");
+				String title = results.getString("Title");
 				list.add(new Album(id, title));
 			}
 		} catch (SQLException e) {
@@ -53,8 +53,8 @@ public class AlbumDao {
             results = statement.executeQuery();
 
             if (results.next()) {
-                String name = results.getString("Title");
-                Album album = new Album(id, name);
+                String title = results.getString("Title");
+                Album album = new Album(id, title);
                 return album;
             } else {
                 return null;

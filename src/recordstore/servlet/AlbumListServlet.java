@@ -16,7 +16,7 @@ import recordstore.database.ChinookDatabase;
 import recordstore.models.Album;
 import recordstore.dao.AlbumDao;
 
-@WebServlet("/artists")
+@WebServlet("/albums")
 public class AlbumListServlet extends HttpServlet {
     private AlbumDao albumDao = new AlbumDao();
 
