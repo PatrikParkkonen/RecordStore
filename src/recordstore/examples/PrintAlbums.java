@@ -28,6 +28,8 @@ public class PrintAlbums {
 		statement.setString(1, input);
 
 		ResultSet results = statement.executeQuery();
+		
+		
 
 		while (results.next()) {
 
@@ -36,7 +38,9 @@ public class PrintAlbums {
 			System.out.println(title);
 		}
 		
+		
 		db.close(results, statement, connection);
+		lukija.close();
 		
 	}
 

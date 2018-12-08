@@ -1,6 +1,7 @@
 package recordstore.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,15 +19,17 @@ import recordstore.models.Artist;
 public class ArtistListServlet extends HttpServlet {
     private ArtistDao artistDao = new ArtistDao();
 
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	PrintWriter writer = resp.getWriter();
         List<Artist> artists = artistDao.getAllArtists();
 
-        req.setAttribute("artists", artists);
+        for (Artist a : artists) {
+        	writer.println(a.getName());
+        }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/artistList.jsp");
-        dispatcher.include(req, resp);
+       
 
     }
 }

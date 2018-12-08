@@ -23,7 +23,7 @@ public class ArtistServlet extends HttpServlet {
         long id = Long.parseLong(req.getParameter("id"));
 
         Artist a = artistDao.findArtist(id);
-        // resp.getWriter().println(a.getName());
+        resp.getWriter().println(a.getName());
 
         req.setAttribute("artist", a);
 
