@@ -39,5 +39,30 @@ public class ArtistDao {
 		
 		return list;
 	}
+	
+	public Artist findArtist(long id) {
+		ChinookDatabase db = new ChinookDatabase();
+        Connection connection = db.connect();
+        PreparedStatement statement = null;
+        ResultSet results = null;
+
+        try {
+            statement = connection.prepareStatement("SELECT * FROM Artist WHERE ArtistId = ?");
+            statement.setLong(1, id);
+            results = statement.executeQuery();
+
+            if (results.next()) {
+                String name = results.getString("Name");
+                Artist artist = new Artist(id, name);
+                return artist;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.close(results, statement, connection);
+        }
+    }
 
 }

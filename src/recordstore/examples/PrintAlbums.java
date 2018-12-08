@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import recordstore.database.ChinookDatabase;
 
@@ -19,9 +20,10 @@ public class PrintAlbums {
 
 		PreparedStatement statement = connection.prepareStatement(SQL);
 		
-		//Put Scanner here
-		
-		String input = "AC/DC";
+		Scanner lukija = new Scanner(System.in);
+    	
+    	System.out.println("Anna artistin nimi: ");
+    	 String input = lukija.next();
 		
 		statement.setString(1, input);
 
