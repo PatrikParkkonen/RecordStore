@@ -9,10 +9,10 @@ public class Track {
 	private String composer;
 	private int milliseconds;
 	private int bytes;
-	private int unitprice;
+	private double unitprice;
 
 	public Track(long id, String name, long mediatypeid, long genreid, String composer, int milliseconds, int bytes,
-			int unitprice) {
+			double unitprice) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +23,16 @@ public class Track {
 		this.bytes = bytes;
 		this.unitprice = unitprice;
 	}
+	
+	
+
+	public Track(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
 
 	public long getId() {
 		return id;
@@ -80,11 +90,11 @@ public class Track {
 		this.bytes = bytes;
 	}
 
-	public int getUnitprice() {
+	public double getUnitprice() {
 		return unitprice;
 	}
 
-	public void setUnitprice(int unitprice) {
+	public void setUnitprice(double unitprice) {
 		this.unitprice = unitprice;
 	}
 
