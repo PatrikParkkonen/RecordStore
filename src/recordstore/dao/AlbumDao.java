@@ -74,25 +74,29 @@ public class AlbumDao {
         ResultSet results = null;
         ArrayList<Album> list = new ArrayList<>();
         long artistid = artist.getId();
+        System.out.println(artistid);
         
         try {
-            statement = connection.prepareStatement("SELECT * FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Artist.ArtistId = ?");
-            statement.setLong(1, artistid);
+            statement = connection.prepareStatement("SELECT * FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");
+            statement.setInt(1, (int) artistid);
             results = statement.executeQuery();
+            System.out.println(results);
+            System.out.println(results.next());
 
             while (results.next()) {
             	Long albumid = results.getLong("AlbumId");
                 String title = results.getString("Title");
                 Album album = new Album(albumid, title);
+                System.out.println(albumid + "" + title + "" + album);
                 list.add(album);
             } 
-            return list;
+           
             
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.close(results, statement, connection);
-        }
+        }  return list;
     }
 
 }

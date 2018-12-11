@@ -11,25 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import recordstore.dao.AlbumDao;
-import recordstore.dao.ArtistDao;
-import recordstore.dao.TrackDao;
+
 import recordstore.database.ChinookDatabase;
 import recordstore.models.Album;
 import recordstore.models.Artist;
+import recordstore.dao.AlbumDao;
+import recordstore.dao.ArtistDao;
 
-@WebServlet("/artists")
-public class ArtistServlet extends HttpServlet {
-
-    private ArtistDao artistDao = new ArtistDao();
+@WebServlet("/tracks")
+public class TrackServlet extends HttpServlet {
     private AlbumDao albumDao = new AlbumDao();
+    private ArtistDao artistDao = new ArtistDao();
     
 
     
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	String artistid = req.getParameter("id");
+    	String albumid = req.getParameter("id");
     	
-    	if (artistid == null || artistid.equals("") ) {
+    	if (albumid == null || albumid.equals("") ) {
     		PrintWriter writer = resp.getWriter();
             List<Artist> artists = artistDao.getAllArtists();
             req.setAttribute("artists", artists);
@@ -50,16 +49,6 @@ public class ArtistServlet extends HttpServlet {
 
             req.setAttribute("artist", artist);
             req.setAttribute("albums", albums);
-           
-            
-            
-            
-          
-    	
-    	}
-    
-
-
-        req.getRequestDispatcher("/WEB-INF/views/artist.jsp").include(req, resp);
     }
+}
 }

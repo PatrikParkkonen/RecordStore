@@ -54,6 +54,7 @@ public class ArtistDao {
             if (results.next()) {
                 String name = results.getString("Name");
                 Artist artist = new Artist(id, name);
+                System.out.println(artist);
                 return artist;
             } else {
                 return null;
