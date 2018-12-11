@@ -21,45 +21,19 @@ import recordstore.models.Artist;
 @WebServlet("/artists")
 public class ArtistServlet extends HttpServlet {
 
-    private ArtistDao artistDao = new ArtistDao();
-    private AlbumDao albumDao = new AlbumDao();
-    
+	private ArtistDao artistDao = new ArtistDao();
+	private AlbumDao albumDao = new AlbumDao();
 
-    
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	String artistid = req.getParameter("id");
-    	
-    	if (artistid == null || artistid.equals("") ) {
-    		PrintWriter writer = resp.getWriter();
-            List<Artist> artists = artistDao.getAllArtists();
-            req.setAttribute("artists", artists);
-          
-            	
-            	 
-                   
-            
-    	} else {
-    		PrintWriter out = resp.getWriter();
-            long id = Long.parseLong(req.getParameter("id"));
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String artistid = req.getParameter("id");
 
-            Artist artist = artistDao.findArtist(id);
-            List<Album> albums = albumDao.findAlbumByArtist(artist);
-            
-            System.out.println(albums);
-            
+		if (artistid == null || artistid.equals("")) {
+			PrintWriter writer = resp.getWriter();
+			List<Artist> artists = artistDao.getAllArtists();
+			req.setAttribute("artists", artists);
 
-            req.setAttribute("artist", artist);
-            req.setAttribute("albums", albums);
-           
-            
-            
-            
-          
-    	
-    	}
-    
+		}
 
-
-        req.getRequestDispatcher("/WEB-INF/views/artist.jsp").include(req, resp);
-    }
+		req.getRequestDispatcher("/WEB-INF/views/artist.jsp").include(req, resp);
+	}
 }

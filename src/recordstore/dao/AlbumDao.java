@@ -9,7 +9,6 @@ import java.util.List;
 
 import recordstore.database.ChinookDatabase;
 import recordstore.models.Album;
-import recordstore.models.Artist;
 
 
 public class AlbumDao {
@@ -24,7 +23,7 @@ public class AlbumDao {
 		ResultSet results = null;
 		
 		try {
-			statement = connection.prepareStatement("SELECT * FROM Album ORDER BY Title ASC");
+			statement = connection.prepareStatement("SELECT * FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId ORDER BY Title ASC");
 			results = statement.executeQuery();
 			
 			while (results.next()) {
@@ -67,27 +66,26 @@ public class AlbumDao {
         }
     }
 	
-	public List<Album> findAlbumByArtist(Artist artist) {
+	public List<Album> findAlbumByArtist(String artistid) {
 		ChinookDatabase db = new ChinookDatabase();
         Connection connection = db.connect();
         PreparedStatement statement = null;
         ResultSet results = null;
         ArrayList<Album> list = new ArrayList<>();
-        long artistid = artist.getId();
+       
         System.out.println(artistid);
         
         try {
-            statement = connection.prepareStatement("SELECT * FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");
-            statement.setInt(1, (int) artistid);
+            statement = connection.prepareStatement("SELECT *, Artist.Name FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");
+            statement.setLong(1, Long.parseLong(artistid));
             results = statement.executeQuery();
-            System.out.println(results);
-            System.out.println(results.next());
-
+        
             while (results.next()) {
             	Long albumid = results.getLong("AlbumId");
                 String title = results.getString("Title");
-                Album album = new Album(albumid, title);
-                System.out.println(albumid + "" + title + "" + album);
+                String albumArtist = results.getString("Name");
+                Album album = new Album(albumid, title, albumArtist);
+               
                 list.add(album);
             } 
            

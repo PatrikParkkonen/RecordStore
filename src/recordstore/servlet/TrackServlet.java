@@ -37,7 +37,7 @@ public class TrackServlet extends HttpServlet {
             	 
                    
             
-    	} else {
+    	} /* else {
     		PrintWriter out = resp.getWriter();
             long id = Long.parseLong(req.getParameter("id"));
 
@@ -49,6 +49,6 @@ public class TrackServlet extends HttpServlet {
 
             req.setAttribute("artist", artist);
             req.setAttribute("albums", albums);
-    }
+    }*/
 }
 }
