@@ -65,5 +65,39 @@ public class ArtistDao {
             db.close(results, statement, connection);
         }
     }
-
+	
+	public List<Artist> searchForArtist(String term) {
+		 ArrayList<Artist> list = new ArrayList<>();
+		
+		// Kootaan kaikki artistit
+		ChinookDatabase db = new ChinookDatabase();
+		Connection connection = db.connect();
+		PreparedStatement statement = null;
+		ResultSet results = null;
+		
+		try {
+			/*
+			 * 
+			 * https://www.w3schools.com/sql/sql_like.asp
+			 * 
+			 */
+			statement = connection.prepareStatement("SELECT * FROM Artist ORDER BY Name ASC WHERE Name LIKE ?");
+			statement.setString(1, "%"+term+"%");
+			results = statement.executeQuery();
+			
+			while (results.next()) {
+				long id = results.getLong("ArtistId");
+				String name = results.getString("Name");
+				list.add(new Artist(id, name));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		db.close(results, statement, connection);
+		
+		return list;
+	}
+	
 }

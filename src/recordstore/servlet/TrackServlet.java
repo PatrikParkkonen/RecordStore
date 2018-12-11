@@ -15,40 +15,41 @@ import javax.servlet.http.HttpServletResponse;
 import recordstore.database.ChinookDatabase;
 import recordstore.models.Album;
 import recordstore.models.Artist;
+import recordstore.models.Track;
 import recordstore.dao.AlbumDao;
 import recordstore.dao.ArtistDao;
+import recordstore.dao.TrackDao;
 
 @WebServlet("/tracks")
 public class TrackServlet extends HttpServlet {
-    private AlbumDao albumDao = new AlbumDao();
-    private ArtistDao artistDao = new ArtistDao();
-    
 
-    
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	String albumid = req.getParameter("id");
-    	
-    	if (albumid == null || albumid.equals("") ) {
-    		PrintWriter writer = resp.getWriter();
-            List<Artist> artists = artistDao.getAllArtists();
-            req.setAttribute("artists", artists);
-          
-            	
-            	 
-                   
-            
-    	} /* else {
-    		PrintWriter out = resp.getWriter();
-            long id = Long.parseLong(req.getParameter("id"));
+	private ArtistDao artistDao = new ArtistDao();
+	private AlbumDao albumDao = new AlbumDao();
+	private TrackDao trackDao = new TrackDao();
 
-            Artist artist = artistDao.findArtist(id);
-            List<Album> albums = albumDao.findAlbumByArtist(artist);
-            
-            System.out.println(albums);
-            
+	private static final long serialVersionUID = 1L;
 
-            req.setAttribute("artist", artist);
-            req.setAttribute("albums", albums);
-    }*/
-}
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String albumid = req.getParameter("albumid");
+		List<Track> tracks = null;
+		String albumartist = "";
+
+		if (albumid == null || albumid.equals("")) {
+			PrintWriter writer = resp.getWriter();
+			tracks = trackDao.getAllTracks();
+			
+
+		}
+
+		else if (!albumid.equals("") || albumid != null) {
+			tracks = trackDao.findTrackByAlbum(albumid);
+			// albumartist = albums.get(0).getAlbumArtist();
+		}
+		// System.out.println(albumartist);
+		req.setAttribute("tracks", tracks);
+	//	req.setAttribute("albumartist", albumartist);
+		req.getRequestDispatcher("/WEB-INF/views/tracks.jsp").include(req, resp);
+
+	}
+
 }

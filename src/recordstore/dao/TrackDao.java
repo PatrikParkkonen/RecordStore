@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import recordstore.database.ChinookDatabase;
+import recordstore.models.Album;
 import recordstore.models.Track;
 
 public class TrackDao {
@@ -69,6 +70,42 @@ public class TrackDao {
         } finally {
             db.close(results, statement, connection);
         }
+    }
+	
+	public List<Track> findTrackByAlbum(String albumid) {
+		ChinookDatabase db = new ChinookDatabase();
+        Connection connection = db.connect();
+        PreparedStatement statement = null;
+        ResultSet results = null;
+        ArrayList<Track> list = new ArrayList<>();
+       
+        System.out.println(albumid);
+        
+        try {
+            statement = connection.prepareStatement("SELECT *, Artist.Name FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");
+            statement.setLong(1, Long.parseLong(albumid));
+            results = statement.executeQuery();
+        
+            while (results.next()) {
+            	long id = results.getLong("TrackId");
+				String name = results.getString("Name");
+				long mediatypeid = results.getLong("MediatypeId");
+				long genreid = results.getLong("GenreId");
+				String composer = results.getString("Composer");
+				long milliseconds = results.getLong("Milliseconds");
+				long bytes = results.getLong("Bytes");
+				double unitprice = results.getDouble("Unitprice");
+				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice);
+               
+                list.add(track);
+            } 
+           
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.close(results, statement, connection);
+        }  return list;
     }
 
 }
