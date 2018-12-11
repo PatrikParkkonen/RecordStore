@@ -31,8 +31,8 @@ public class TrackDao {
 				long mediatypeid = results.getLong("MediatypeId");
 				long genreid = results.getLong("GenreId");
 				String composer = results.getString("Composer");
-				int milliseconds = results.getInt("Milliseconds");
-				int bytes = results.getInt("Bytes");
+				long milliseconds = results.getLong("Milliseconds");
+				long bytes = results.getLong("Bytes");
 				double unitprice = results.getDouble("Unitprice");
 				list.add(new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice));
 			}

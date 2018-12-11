@@ -9,6 +9,7 @@ import java.util.List;
 
 import recordstore.database.ChinookDatabase;
 import recordstore.models.Album;
+import recordstore.models.Artist;
 
 
 public class AlbumDao {
@@ -59,6 +60,34 @@ public class AlbumDao {
             } else {
                 return null;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.close(results, statement, connection);
+        }
+    }
+	
+	public List<Album> findAlbumByArtist(Artist artist) {
+		ChinookDatabase db = new ChinookDatabase();
+        Connection connection = db.connect();
+        PreparedStatement statement = null;
+        ResultSet results = null;
+        ArrayList<Album> list = new ArrayList<>();
+        long artistid = artist.getId();
+        
+        try {
+            statement = connection.prepareStatement("SELECT * FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Artist.ArtistId = ?");
+            statement.setLong(1, artistid);
+            results = statement.executeQuery();
+
+            while (results.next()) {
+            	Long albumid = results.getLong("AlbumId");
+                String title = results.getString("Title");
+                Album album = new Album(albumid, title);
+                list.add(album);
+            } 
+            return list;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

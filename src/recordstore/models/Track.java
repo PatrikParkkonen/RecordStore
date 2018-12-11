@@ -7,11 +7,11 @@ public class Track {
 	private long mediatypeid;
 	private long genreid;
 	private String composer;
-	private int milliseconds;
-	private int bytes;
+	private long milliseconds;
+	private long bytes;
 	private double unitprice;
 
-	public Track(long id, String name, long mediatypeid, long genreid, String composer, int milliseconds, int bytes,
+	public Track(long id, String name, long mediatypeid, long genreid, String composer, long milliseconds, long bytes,
 			double unitprice) {
 		super();
 		this.id = id;
@@ -74,19 +74,19 @@ public class Track {
 		this.composer = composer;
 	}
 
-	public int getMilliseconds() {
+	public long getMilliseconds() {
 		return milliseconds;
 	}
 
-	public void setMilliseconds(int milliseconds) {
+	public void setMilliseconds(long milliseconds) {
 		this.milliseconds = milliseconds;
 	}
 
-	public int getBytes() {
+	public long getBytes() {
 		return bytes;
 	}
 
-	public void setBytes(int bytes) {
+	public void setBytes(long bytes) {
 		this.bytes = bytes;
 	}
 
