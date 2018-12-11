@@ -82,7 +82,7 @@ public class TrackDao {
         System.out.println(albumid);
         
         try {
-            statement = connection.prepareStatement("SELECT *, Artist.Name FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");
+            statement = connection.prepareStatement("SELECT * FROM Track LEFT JOIN Album ON Album.AlbumId = Track.AlbumId WHERE Track.AlbumId = ?");
             statement.setLong(1, Long.parseLong(albumid));
             results = statement.executeQuery();
         
@@ -95,6 +95,7 @@ public class TrackDao {
 				long milliseconds = results.getLong("Milliseconds");
 				long bytes = results.getLong("Bytes");
 				double unitprice = results.getDouble("Unitprice");
+				
 				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice);
                
                 list.add(track);

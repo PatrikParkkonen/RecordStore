@@ -6,9 +6,10 @@
 <c:out value="${ albumartist }" />
 </h1>
 	<c:forEach items="${ albums }" var="album">
-				<ul>
+				<li><a href="/RecordStore/tracks?albumid=${ album.getId() }">
 					<c:out value="${ album.getTitle() }" />
-				</ul>
+					</a>
+				</li>
 			</c:forEach>
 
 </body>
