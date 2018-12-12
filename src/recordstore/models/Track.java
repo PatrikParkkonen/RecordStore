@@ -10,7 +10,22 @@ public class Track {
 	private long milliseconds;
 	private long bytes;
 	private double unitprice;
+	private String genreName;
 
+	public Track(long id, String name, long mediatypeid, long genreid, String composer, long milliseconds, long bytes,
+			double unitprice, String genreName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.mediatypeid = mediatypeid;
+		this.genreid = genreid;
+		this.composer = composer;
+		this.milliseconds = milliseconds;
+		this.bytes = bytes;
+		this.unitprice = unitprice;
+		this.setGenreName(genreName);
+	}
+	
 	public Track(long id, String name, long mediatypeid, long genreid, String composer, long milliseconds, long bytes,
 			double unitprice) {
 		super();
@@ -22,6 +37,7 @@ public class Track {
 		this.milliseconds = milliseconds;
 		this.bytes = bytes;
 		this.unitprice = unitprice;
+		
 	}
 	
 	  public static String msToMin(int milliseconds) {
@@ -102,6 +118,14 @@ public class Track {
 
 	public void setUnitprice(double unitprice) {
 		this.unitprice = unitprice;
+	}
+	
+	public String getGenreName() {
+		return genreName;
+	}
+	
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
 	}
 
 }

@@ -3,6 +3,7 @@ package recordstore.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class TrackDao {
 				long milliseconds = results.getLong("Milliseconds");
 				long bytes = results.getLong("Bytes");
 				double unitprice = results.getDouble("Unitprice");
+				
+				
 				list.add(new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice));
 			}
 		} catch (SQLException e) {
@@ -81,10 +84,14 @@ public class TrackDao {
        
         System.out.println(albumid);
         
+      
+        
         try {
-            statement = connection.prepareStatement("SELECT * FROM Track LEFT JOIN Album ON Album.AlbumId = Track.AlbumId WHERE Track.AlbumId = ?");
+            statement = connection.prepareStatement("SELECT *, Genre.Name AS Genrename FROM Track LEFT JOIN Genre ON Genre.GenreId = Track.GenreId LEFT JOIN Album ON Album.AlbumId = Track.AlbumId WHERE Track.AlbumId = ?");
             statement.setLong(1, Long.parseLong(albumid));
             results = statement.executeQuery();
+            
+            
         
             while (results.next()) {
             	long id = results.getLong("TrackId");
@@ -95,8 +102,9 @@ public class TrackDao {
 				long milliseconds = results.getLong("Milliseconds");
 				long bytes = results.getLong("Bytes");
 				double unitprice = results.getDouble("Unitprice");
+				String genrename = results.getString("Genrename");
 				
-				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice);
+				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice, genrename);
                
                 list.add(track);
             } 

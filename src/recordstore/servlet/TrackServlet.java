@@ -32,7 +32,7 @@ public class TrackServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String albumid = req.getParameter("albumid");
 		List<Track> tracks = null;
-		String albumartist = "";
+		String genrename = "";
 
 		if (albumid == null || albumid.equals("")) {
 			PrintWriter writer = resp.getWriter();
@@ -43,11 +43,11 @@ public class TrackServlet extends HttpServlet {
 
 		else if (!albumid.equals("") || albumid != null) {
 			tracks = trackDao.findTrackByAlbum(albumid);
-			// albumartist = albums.get(0).getAlbumArtist();
+			genrename = tracks.get(0).getGenreName();
 		}
 		// System.out.println(albumartist);
 		req.setAttribute("tracks", tracks);
-	//	req.setAttribute("albumartist", albumartist);
+		req.setAttribute("Genre.Name", genrename);
 		req.getRequestDispatcher("/WEB-INF/views/tracks.jsp").include(req, resp);
 
 	}
