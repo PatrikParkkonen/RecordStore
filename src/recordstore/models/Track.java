@@ -80,8 +80,8 @@ public class Track {
 		this.composer = composer;
 	}
 
-	public long getMilliseconds() {
-		return milliseconds;
+	public String getMilliseconds() {
+		return msToMin((int) milliseconds);
 	}
 
 	public void setMilliseconds(long milliseconds) {
