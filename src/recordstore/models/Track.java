@@ -24,7 +24,13 @@ public class Track {
 		this.unitprice = unitprice;
 	}
 	
-	
+	  public static String msToMin(int milliseconds) {
+	        
+	        long minutes = (milliseconds / 1000) / 60;
+	        long seconds = (milliseconds / 1000) % 60;
+
+	        return minutes + ":" + (seconds < 10 ? '0' : "") + seconds;
+	     }
 
 	public Track(long id, String name) {
 		super();
