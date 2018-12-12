@@ -1,7 +1,6 @@
 package recordstore.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import recordstore.dao.ArtistDao;
 import recordstore.models.Artist;
 
-/**
- * Servlet implementation class ArtistSearchServlet
- */
+
 @WebServlet("/artistsearch")
 public class ArtistSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,10 +22,10 @@ public class ArtistSearchServlet extends HttpServlet {
 		
 		String artistname = req.getParameter("artistname");
 		
-		System.out.println(artistname);
+	
 
 		if (true) {
-			PrintWriter writer = resp.getWriter();
+			
 			List<Artist> artists = artistDao.searchForArtist(artistname);
 			req.setAttribute("artists", artists);
 		

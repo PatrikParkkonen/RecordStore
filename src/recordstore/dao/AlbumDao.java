@@ -16,7 +16,7 @@ public class AlbumDao {
 	public List<Album> getAllAlbums() {
 		 ArrayList<Album> list = new ArrayList<>();
 		
-		// Kootaan kaikki artistit
+		
 		ChinookDatabase db = new ChinookDatabase();
 		Connection connection = db.connect();
 		PreparedStatement statement = null;
@@ -73,7 +73,7 @@ public class AlbumDao {
         ResultSet results = null;
         ArrayList<Album> list = new ArrayList<>();
        
-        System.out.println(artistid);
+        
         
         try {
             statement = connection.prepareStatement("SELECT *, Artist.Name FROM Album LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Album.ArtistId = ?");

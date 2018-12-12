@@ -54,7 +54,7 @@ public class ArtistDao {
             if (results.next()) {
                 String name = results.getString("Name");
                 Artist artist = new Artist(id, name);
-                System.out.println(artist);
+                
                 return artist;
             } else {
                 return null;
@@ -69,12 +69,12 @@ public class ArtistDao {
 	public List<Artist> searchForArtist(String term) {
 		 ArrayList<Artist> list = new ArrayList<>();
 		
-		// Kootaan kaikki artistit
+	
 		ChinookDatabase db = new ChinookDatabase();
 		Connection connection = db.connect();
 		PreparedStatement statement = null;
 		ResultSet results = null;
-		System.out.println(term);
+		
 		
 		try {
 			/*
@@ -90,7 +90,7 @@ public class ArtistDao {
 				long id = results.getLong("ArtistId");
 				String name = results.getString("Name");
 				list.add(new Artist(id, name));
-				System.out.println(name);
+			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

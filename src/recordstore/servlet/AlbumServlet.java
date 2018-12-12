@@ -1,7 +1,6 @@
 package recordstore.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import recordstore.dao.AlbumDao;
-import recordstore.dao.ArtistDao;
 import recordstore.models.Album;
-import recordstore.models.Artist;
 
 @WebServlet("/albums")
 public class AlbumServlet extends HttpServlet {
 
-	private ArtistDao artistDao = new ArtistDao();
+	
 	private AlbumDao albumDao = new AlbumDao();
 
 	private static final long serialVersionUID = 1L;
@@ -31,7 +28,7 @@ public class AlbumServlet extends HttpServlet {
 	
 
 		if (artistid == null || artistid.equals("")) {
-			PrintWriter writer = resp.getWriter();
+			
 			albums = albumDao.getAllAlbums();
 			
 
@@ -46,8 +43,7 @@ public class AlbumServlet extends HttpServlet {
 				req.setAttribute("albums", albums);
 			} 
 		}
-		System.out.println(albumartist);
-		System.out.println(albums);
+	
 		
 		req.setAttribute("albumartist", albumartist);
 		req.getRequestDispatcher("/WEB-INF/views/albums.jsp").include(req, resp);

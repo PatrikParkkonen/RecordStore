@@ -1,30 +1,21 @@
 package recordstore.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import recordstore.database.ChinookDatabase;
-import recordstore.models.Album;
-import recordstore.models.Artist;
-import recordstore.models.Track;
-import recordstore.dao.AlbumDao;
-import recordstore.dao.ArtistDao;
 import recordstore.dao.TrackDao;
+import recordstore.models.Track;
 
 @WebServlet("/tracks")
 public class TrackServlet extends HttpServlet {
 
-	private ArtistDao artistDao = new ArtistDao();
-	private AlbumDao albumDao = new AlbumDao();
+
 	private TrackDao trackDao = new TrackDao();
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +27,7 @@ public class TrackServlet extends HttpServlet {
 		String artistname = "";
 
 		if (albumid == null || albumid.equals("")) {
-			PrintWriter writer = resp.getWriter();
+			
 			tracks = trackDao.getAllTracks();
 			
 
@@ -46,7 +37,7 @@ public class TrackServlet extends HttpServlet {
 			tracks = trackDao.findTrackByAlbum(albumid);
 			genrename = tracks.get(0).getGenreName();
 		}
-		// System.out.println(albumartist);
+	
 		req.setAttribute("artistname", artistname);
 		req.setAttribute("tracks", tracks);
 		req.setAttribute("Genre.Name", genrename);
