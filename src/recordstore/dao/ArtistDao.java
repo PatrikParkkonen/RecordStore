@@ -102,4 +102,33 @@ public class ArtistDao {
 		return list;
 	}
 	
+	public void addArtist(String name) {
+		ChinookDatabase db = new ChinookDatabase();
+		Connection connection = db.connect();
+		PreparedStatement statement = null;
+		
+		
+		
+		try {
+			statement = connection.prepareStatement("INSERT INTO Artist (Name) VALUES (?)");
+			statement.setString(1, name);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+			} catch (Exception e) {
+				
+			}
+			try {
+				connection.close();
+			} catch (Exception e) {
+				
+			}
+		}
+	
+	}
+	
 }

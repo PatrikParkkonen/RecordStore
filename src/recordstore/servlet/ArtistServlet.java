@@ -35,5 +35,17 @@ public class ArtistServlet extends HttpServlet {
 		}
 
 		req.getRequestDispatcher("/WEB-INF/views/artist.jsp").include(req, resp);
-	}
+	} 
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String artistname = req.getParameter("artistname");
+		artistname = artistname.substring(0, 1).toUpperCase()+artistname.substring(1);
+		artistDao.addArtist(artistname);
+		
+		List<Artist> artists = artistDao.getAllArtists();
+		req.setAttribute("artists", artists);
+		
+		req.getRequestDispatcher("/WEB-INF/views/artist.jsp").include(req, resp);
+	} 
 }

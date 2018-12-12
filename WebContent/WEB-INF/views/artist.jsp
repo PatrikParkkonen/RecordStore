@@ -3,7 +3,7 @@
 <html>
 <body>
 <form action = "artistsearch" method = "GET">
-         Name: <input type = "text" name = "artistname">
+         Search for artist: <input type = "text" name = "artistname">
          <br />
         
          <input type = "submit" value = "Submit" />
@@ -14,6 +14,12 @@
 								value="${ artist.getName() }" /></a></li>
 				</c:forEach>
 			</ul>
+			<form action = "" method = "POST">
+				Add: <input type = "text" name = "artistname">
+				<br />
+				
+				<input type = "submit" value = "Submit" />
+			</form>
 
 
 </body>
