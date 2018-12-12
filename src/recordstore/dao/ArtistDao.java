@@ -74,6 +74,7 @@ public class ArtistDao {
 		Connection connection = db.connect();
 		PreparedStatement statement = null;
 		ResultSet results = null;
+		System.out.println(term);
 		
 		try {
 			/*
@@ -81,7 +82,7 @@ public class ArtistDao {
 			 * https://www.w3schools.com/sql/sql_like.asp
 			 * 
 			 */
-			statement = connection.prepareStatement("SELECT * FROM Artist ORDER BY Name ASC WHERE Name LIKE ?");
+			statement = connection.prepareStatement("SELECT * FROM Artist WHERE NAME LIKE ? ORDER BY NAME ASC");
 			statement.setString(1, "%"+term+"%");
 			results = statement.executeQuery();
 			
@@ -89,6 +90,7 @@ public class ArtistDao {
 				long id = results.getLong("ArtistId");
 				String name = results.getString("Name");
 				list.add(new Artist(id, name));
+				System.out.println(name);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

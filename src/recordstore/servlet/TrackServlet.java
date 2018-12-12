@@ -33,6 +33,7 @@ public class TrackServlet extends HttpServlet {
 		String albumid = req.getParameter("albumid");
 		List<Track> tracks = null;
 		String genrename = "";
+		String artistname = "";
 
 		if (albumid == null || albumid.equals("")) {
 			PrintWriter writer = resp.getWriter();
@@ -46,6 +47,7 @@ public class TrackServlet extends HttpServlet {
 			genrename = tracks.get(0).getGenreName();
 		}
 		// System.out.println(albumartist);
+		req.setAttribute("artistname", artistname);
 		req.setAttribute("tracks", tracks);
 		req.setAttribute("Genre.Name", genrename);
 		req.getRequestDispatcher("/WEB-INF/views/tracks.jsp").include(req, resp);

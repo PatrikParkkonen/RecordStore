@@ -11,9 +11,10 @@ public class Track {
 	private long bytes;
 	private double unitprice;
 	private String genreName;
+	private String artistname;
 
 	public Track(long id, String name, long mediatypeid, long genreid, String composer, long milliseconds, long bytes,
-			double unitprice, String genreName) {
+			double unitprice, String genreName, String artistname) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +25,7 @@ public class Track {
 		this.bytes = bytes;
 		this.unitprice = unitprice;
 		this.setGenreName(genreName);
+		this.setArtistname(artistname);
 	}
 	
 	public Track(long id, String name, long mediatypeid, long genreid, String composer, long milliseconds, long bytes,
@@ -128,4 +130,13 @@ public class Track {
 		this.genreName = genreName;
 	}
 
+	public String getArtistname() {
+		return artistname;
+	}
+
+	public void setArtistname(String artistname) {
+		this.artistname = artistname;
+	}
+
+	
 }

@@ -87,7 +87,7 @@ public class TrackDao {
       
         
         try {
-            statement = connection.prepareStatement("SELECT *, Genre.Name AS Genrename FROM Track LEFT JOIN Genre ON Genre.GenreId = Track.GenreId LEFT JOIN Album ON Album.AlbumId = Track.AlbumId WHERE Track.AlbumId = ?");
+            statement = connection.prepareStatement("SELECT *, Genre.Name AS Genrename, Artist.Name AS Artistname FROM Track LEFT JOIN Genre ON Genre.GenreId = Track.GenreId LEFT JOIN Album ON Album.AlbumId = Track.AlbumId LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId WHERE Track.AlbumId = ?");
             statement.setLong(1, Long.parseLong(albumid));
             results = statement.executeQuery();
             
@@ -103,8 +103,9 @@ public class TrackDao {
 				long bytes = results.getLong("Bytes");
 				double unitprice = results.getDouble("Unitprice");
 				String genrename = results.getString("Genrename");
+				String artistname = results.getString("Artistname");
 				
-				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice, genrename);
+				Track track = new Track(id, name, mediatypeid, genreid, composer, milliseconds, bytes, unitprice, genrename, artistname);
                
                 list.add(track);
             } 
